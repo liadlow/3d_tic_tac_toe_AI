@@ -1,18 +1,12 @@
 package game;
 
-import java.util.Scanner;
-
 public class Main {
 
 	public static void main(String[] args) {
 		
-		//player chooses symbol and name
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("Your name:");
-		String name = keyboard.nextLine();
-		System.out.println("Choose your symbol (X/O)");
-		String symbol = keyboard.nextLine();
-		keyboard.close();
+		//player chooses symbol and name		
+		String name = Panel.namePrompt();
+		String symbol = Panel.symbolPrompt();
 		
 		//initialize game
 		Game game = new Game(name, symbol);
