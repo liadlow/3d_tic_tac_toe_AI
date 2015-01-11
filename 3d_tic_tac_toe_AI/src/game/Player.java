@@ -6,7 +6,7 @@ public class Player {
 	
 	private String name, symbol;
 	private int num_ttts; //number of tic tac toes
-	private boolean AI, turnToPlay;
+	private boolean AI;
 	
 	public Player(String name, String symbol, boolean aI) {
 		super();
@@ -25,6 +25,8 @@ public class Player {
 		}
 		else {
 			//MINIMAX
+			
+			//damn you AI I will be random anyways!
 		}
 		return move;
 	}
@@ -55,14 +57,6 @@ public class Player {
 
 	public void setAI(boolean aI) {
 		AI = aI;
-	}
-
-	public boolean isTurnToPlay() {
-		return turnToPlay;
-	}
-
-	public void setTurnToPlay(boolean turnToPlay) {
-		this.turnToPlay = turnToPlay;
 	}
 
 	public int getNum_ttts() {

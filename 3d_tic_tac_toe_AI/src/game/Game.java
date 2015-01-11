@@ -10,8 +10,8 @@ public class Game {
 
 	public Game(String name, String symbol) {
 		super();
-		this.player = new Player(name, symbol, false);
-		this.pc = new Player("computer", oppositeSymbol(), true);
+		player = new Player(name, symbol, false);
+		pc = new Player("computer", oppositeSymbol(), true);
 		grid = new Grid();
 		gameover = false;
 	}
@@ -29,13 +29,9 @@ public class Game {
 		Random rand = new Random();
 		int randomNum = rand.nextInt((1 - 0) + 1);
 		if(randomNum == 1) {
-			player.setTurnToPlay(true);
-			pc.setTurnToPlay(false);
 			return player;
 		}
 		else {
-			pc.setTurnToPlay(true);
-			player.setTurnToPlay(false);
 			return pc;
 		}
 	}
@@ -43,20 +39,31 @@ public class Game {
 	// main method. after initialization infinite loop till game ends
 	public void play(Player turn) {
 		while(true) {
+			Panel.showGrid(grid.getLevel1(), grid.getLevel2(), grid.getLevel3(), player.getName(), player.getNum_ttts(), pc.getNum_ttts());
 			Coordinates cord = turn.make_move(grid.getEmpty_cells());
-			grid.lock_move(cord);
-			int ttts = grid.check_ttt(cord); //check for new tic tac toes
+			
+			// random input for testing
+			if(cord == null && turn.isAI()) {
+				Random rand = new Random();
+				int randomNum = rand.nextInt((grid.getEmpty_cells().size() - 1) + 1) + 1;
+				cord = grid.getEmpty_cells().get(randomNum - 1);
+			}
+				
+				
+			grid.lock_move(cord, turn.getSymbol());
+			int ttts = grid.check_ttt(cord, turn.getSymbol()); //check for new tic tac toes
 			turn.add_ttts(ttts);
 			if(grid.isFull()) {
 				gameover = true;
+				Panel.showGrid(grid.getLevel1(), grid.getLevel2(), grid.getLevel3(), player.getName(), player.getNum_ttts(), pc.getNum_ttts());
+				int playert = player.getNum_ttts(), pct = pc.getNum_ttts();
+				Panel.gemover(playert > pct ? "You won" : playert < pct ? "LOSER" : "It's a draw");
 				break;
 			}
 			else {
 				turn = changePlayer(turn);
 			}
 		}
-		//flow is here only if game is over
-		System.out.println("winner is "+turn.getName());
 	}
 	
 	private Player changePlayer(Player current) {
