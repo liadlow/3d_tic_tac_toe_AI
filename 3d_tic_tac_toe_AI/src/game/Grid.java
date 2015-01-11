@@ -78,6 +78,7 @@ public class Grid {
 		return evScore;
 	}
 
+	//check for tic tac toes in the lines concerning cell defined by cords
 	public int check_ttt(Coordinates cord, String symbol) {
 		int num_ttts = 0;
 		if(cord.neighboursX(this, symbol) == 2) {

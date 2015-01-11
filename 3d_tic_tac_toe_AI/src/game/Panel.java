@@ -1,3 +1,7 @@
+/*
+ * user interaction. Show messages and get input.
+ */
+
 package game;
 
 import java.util.Scanner;
@@ -6,6 +10,7 @@ public class Panel {
 	
 	private static Scanner keyboard = new Scanner(System.in);
 
+	// prompt user to make move
 	public static Coordinates movePrompt() {
 		System.out.print("Make your move by choosing the level in which you want to play (1 - upper level, 2 - mid level, 3 - lower level): ");
 		int level = inputInt("Provide an integer as the level: ");
@@ -29,6 +34,7 @@ public class Panel {
 		return cord;
 	}
 	
+	// custom getInt
 	private static int inputInt(String errorPrompt) {
 		String input = keyboard.nextLine();
 		while(true) {
@@ -42,6 +48,7 @@ public class Panel {
 		}
 	}
 
+	// show move error concerning availability
 	public static Coordinates wrongMove() {
 		System.out.println("The cell you asked is already marked. Choose a free cell.");
 		return movePrompt();
@@ -63,6 +70,7 @@ public class Panel {
 		return symbol;
 	}
 
+	//main UI
 	public static void showGrid(String[][] level1, String[][] level2, String[][] level3, String name, int player, int pc) {
 		System.out.println("==================================== 3D  Tic-Tac-Toe ====================================\n");
 		System.out.println("                -Level 1-               -Level 2-               -Level 3-                \n");
@@ -76,6 +84,7 @@ public class Panel {
 		System.out.println("                                   current streak:  -                                    \n");
 	}
 
+	// last screen
 	public static void gemover(String outcome) {
 		System.out.println(" =======================================================================================");
 		System.out.println("|                                                                                       |");

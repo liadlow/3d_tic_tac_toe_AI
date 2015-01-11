@@ -13,6 +13,7 @@ public class Coordinates {
 		this.y = y;
 	}
 
+	// checks validity concerning cell availability
 	public boolean isValid(ArrayList<Coordinates> empty_cells) {
 		for(Coordinates cell : empty_cells) {
 			if(this.equals(cell)) {
@@ -22,6 +23,13 @@ public class Coordinates {
 		return false;
 	}
 	
+	/*
+	 * 
+	 * neighbours functions find the number of a cell's friend or enemy neighbours with weights (+1 - friend, -1 - opponent)
+	 * in case of empty line returns -3
+	 *
+	 * start neighbours functions ===========================================================================================
+	 */
 	public int neighboursX(Grid g, String symbol) {
 		Coordinates n1 = rowNext(), n2 = n1.rowNext();
 		int neighbours = 0;
@@ -158,7 +166,17 @@ public class Coordinates {
 		}
 		return neighbours;
 	}
+	/*
+	 * end neighbours functions ===============================================================================================
+	 */
 	
+	
+	/*
+	 * "next" functions find the next cell in the line and return its coordinates.
+	 * the isIn functions specify if the cell is part of a line.
+	 * 
+	 * start next-isIn functions ==============================================================================================
+	 */
 	private Coordinates colNext() {
 		if(x == 3) {
 			return new Coordinates(level, 1, y);
@@ -315,6 +333,9 @@ public class Coordinates {
 			return new Coordinates(level + 1, x - 1, y + 1);
 		}
 	}
+	/*
+	 * end next-isIn functions ================================================================================================
+	 */
 	
 	public boolean equals(Coordinates cord) {
 		return (cord.getLevel() == level && cord.getX() == x && cord.getY() == y);
