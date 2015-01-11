@@ -79,48 +79,48 @@ public class Grid {
 	}
 
 	//check for tic tac toes in the lines concerning cell defined by cords
-	public int check_ttt(Coordinates cord, String symbol) {
-		int num_ttts = 0;
+	public ArrayList<ArrayList<Coordinates>> check_ttt(Coordinates cord, String symbol) {
+		ArrayList<ArrayList <Coordinates>> lines = new ArrayList<ArrayList <Coordinates>>();
 		if(cord.neighboursX(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.xline());
 		}
 		if(cord.neighboursY(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.yline());
 		}
 		if(cord.neighboursZ(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.zline());
 		}
 		if(cord.neighboursLevelDiag1(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.ldiag1line());
 		}
 		if(cord.neighboursLevelDiag2(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.ldiag2line());
 		}
 		if(cord.neighboursInterRow1(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.irow1line());
 		}
 		if(cord.neighboursInterRow2(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.irow2line());
 		}
 		if(cord.neighboursInterCol1(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.icol1line());
 		}
 		if(cord.neighboursInterCol2(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.icol2line());
 		}
 		if(cord.neighboursInterDiag1(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.idiag1line());
 		}
 		if(cord.neighboursInterDiag2(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.idiag2line());
 		}
 		if(cord.neighboursInterDiag3(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.idiag3line());
 		}
 		if(cord.neighboursInterDiag4(this, symbol) == 2) {
-			num_ttts++;
+			lines.add(cord.idiag4line());
 		}
-		return num_ttts;
+		return lines;
 	}
 
 	public boolean isFull() {

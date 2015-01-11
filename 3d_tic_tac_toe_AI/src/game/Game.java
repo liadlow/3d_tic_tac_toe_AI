@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
@@ -39,7 +40,7 @@ public class Game {
 	// main method. after initialization infinite loop till game ends
 	public void play(Player turn) {
 		while(true) {
-			Panel.showGrid(grid.getLevel1(), grid.getLevel2(), grid.getLevel3(), player.getName(), player.getNum_ttts(), pc.getNum_ttts());
+			Panel.showGrid(grid.getLevel1(), grid.getLevel2(), grid.getLevel3(), player.getName(), player.getNum_ttts(), pc.getNum_ttts(), turn.getName(), 0);
 			Coordinates cord = turn.make_move(grid.getEmpty_cells());
 			
 			// random input for testing
@@ -51,11 +52,14 @@ public class Game {
 				
 				
 			grid.lock_move(cord, turn.getSymbol());
-			int ttts = grid.check_ttt(cord, turn.getSymbol()); //check for new tic tac toes
-			turn.add_ttts(ttts);
+			ArrayList<ArrayList<Coordinates>> ttts = grid.check_ttt(cord, turn.getSymbol()); //check for new tic tac toes
+			if(!ttts.isEmpty()) {
+				Panel.showttts(grid.getLevel1(), grid.getLevel2(), grid.getLevel3(), player.getName(), player.getNum_ttts(), pc.getNum_ttts(), turn.getName(), turn.getSymbol(), ttts);
+			}
+			turn.add_ttts(ttts.size());
 			if(grid.isFull()) {
 				gameover = true;
-				Panel.showGrid(grid.getLevel1(), grid.getLevel2(), grid.getLevel3(), player.getName(), player.getNum_ttts(), pc.getNum_ttts());
+				Panel.showGrid(grid.getLevel1(), grid.getLevel2(), grid.getLevel3(), player.getName(), player.getNum_ttts(), pc.getNum_ttts(), turn.getName(), 0);
 				int playert = player.getNum_ttts(), pct = pc.getNum_ttts();
 				Panel.gemover(playert > pct ? "You won" : playert < pct ? "LOSER" : "It's a draw");
 				break;

@@ -337,6 +337,119 @@ public class Coordinates {
 	 * end next-isIn functions ================================================================================================
 	 */
 	
+
+	/*
+	 * line functions return the 3 coordinates consisting the line asked in an ArrayList
+	 * 
+	 * start line functions ===================================================================================================
+	 */
+	public ArrayList<Coordinates> xline() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(rowNext());
+		line.add(rowNext().rowNext());
+		return line;
+	}
+
+	public ArrayList<Coordinates> yline() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(colNext());
+		line.add(colNext().colNext());
+		return line;
+	}
+
+	public ArrayList<Coordinates> zline() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(below());
+		line.add(below().below());
+		return line;
+	}
+
+	public ArrayList<Coordinates> ldiag1line() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(levelDiag1Next());
+		line.add(levelDiag1Next().levelDiag1Next());
+		return line;
+	}
+
+	public ArrayList<Coordinates> ldiag2line() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(levelDiag2Next());
+		line.add(levelDiag2Next().levelDiag2Next());
+		return line;
+	}
+
+	public ArrayList<Coordinates> irow1line() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(interRow1Next());
+		line.add(interRow1Next().interRow1Next());
+		return line;
+	}
+
+	public ArrayList<Coordinates> irow2line() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(interRow2Next());
+		line.add(interRow2Next().interRow2Next());
+		return line;
+	}
+
+	public ArrayList<Coordinates> icol1line() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(interCol1Next());
+		line.add(interCol1Next().interCol1Next());
+		return line;
+	}
+
+	public ArrayList<Coordinates> icol2line() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(interCol2Next());
+		line.add(interCol2Next().interCol2Next());
+		return line;
+	}
+
+	public ArrayList<Coordinates> idiag1line() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(interDiag1Next());
+		line.add(interDiag1Next().interDiag1Next());
+		return line;
+	}
+
+	public ArrayList<Coordinates> idiag2line() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(interDiag2Next());
+		line.add(interDiag2Next().interDiag2Next());
+		return line;
+	}
+
+	public ArrayList<Coordinates> idiag3line() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(interDiag3Next());
+		line.add(interDiag3Next().interDiag3Next());
+		return line;
+	}
+
+	public ArrayList<Coordinates> idiag4line() {
+		ArrayList<Coordinates> line = new ArrayList<Coordinates>();
+		line.add(this);
+		line.add(interDiag4Next());
+		line.add(interDiag4Next().interDiag4Next());
+		return line;
+	}
+	/*
+	 * end line functions =====================================================================================================
+	 */
+	
 	public boolean equals(Coordinates cord) {
 		return (cord.getLevel() == level && cord.getX() == x && cord.getY() == y);
 	}

@@ -4,6 +4,7 @@
 
 package game;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Panel {
@@ -71,7 +72,7 @@ public class Panel {
 	}
 
 	//main UI
-	public static void showGrid(String[][] level1, String[][] level2, String[][] level3, String name, int player, int pc) {
+	public static void showGrid(String[][] level1, String[][] level2, String[][] level3, String name, int player, int pc, String turn, int streak) {
 		System.out.println("==================================== 3D  Tic-Tac-Toe ====================================\n");
 		System.out.println("                -Level 1-               -Level 2-               -Level 3-                \n");
 		System.out.println("                "+level1[0][0]+" | "+level1[0][1]+" | "+level1[0][2]+"               "+level2[0][0]+" | "+level2[0][1]+" | "+level2[0][2]+"               "+level3[0][0]+" | "+level3[0][1]+" | "+level3[0][2]+"                ");
@@ -81,7 +82,8 @@ public class Panel {
 		System.out.println("                "+level1[2][0]+" | "+level1[2][1]+" | "+level1[2][2]+"               "+level2[2][0]+" | "+level2[2][1]+" | "+level2[2][2]+"               "+level3[2][0]+" | "+level3[2][1]+" | "+level3[2][2]+"                \n");
 		System.out.println("  name: "+name+"                                                           computer");
 		System.out.println("                                   "+player+"        -        "+pc+"                                   \n");
-		System.out.println("                                   current streak:  -                                    \n");
+		System.out.println("  turn: "+turn+"\n");
+		System.out.println("                                   current streak:  "+(streak == 0 ? "-" : streak)+"                                    \n");
 	}
 
 	// last screen
@@ -102,6 +104,50 @@ public class Panel {
 		System.out.println("|                                                                                       |");
 		System.out.println("|                                                                                       |");
 		System.out.println(" =======================================================================================");
+	}
+
+	// show the new tic tac toes with *
+	public static void showttts(String[][] level1, String[][] level2, String[][] level3,
+			String name, int player, int pc, String turn, String symbol, ArrayList<ArrayList<Coordinates>> lines) {
+		boolean playerturn = name.equals(turn);
+		for(int i = 0; i < lines.size(); i++) {
+		// replace the tic tac toe marks with *
+			for(int j = 0; j < 3; j++) {
+				switch(lines.get(i).get(j).getLevel()) {
+					case 1:
+						level1[lines.get(i).get(j).getX() - 1][lines.get(i).get(j).getY() - 1] = "*";
+						break;
+					case 2:
+						level2[lines.get(i).get(j).getX() - 1][lines.get(i).get(j).getY() - 1] = "*";
+						break;
+					case 3:
+						level3[lines.get(i).get(j).getX() - 1][lines.get(i).get(j).getY() - 1] = "*";
+						break;
+				}
+			}
+			// show hte grid to user
+			showGrid(level1, level2, level3, name, playerturn ? player + 1 : player, playerturn ? pc : pc + 1, turn, i + 1);
+			for(int j = 0; j < 3; j++) {
+			// place back the symbols of the turn player
+				switch(lines.get(i).get(j).getLevel()) {
+					case 1:
+						level1[lines.get(i).get(j).getX() - 1][lines.get(i).get(j).getY() - 1] = symbol;
+						break;
+					case 2:
+						level2[lines.get(i).get(j).getX() - 1][lines.get(i).get(j).getY() - 1] = symbol;
+						break;
+					case 3:
+						level3[lines.get(i).get(j).getX() - 1][lines.get(i).get(j).getY() - 1] = symbol;
+						break;
+				}
+			}
+			try {
+				// pause execution for 2 seconds so the user can see the tic tac toe cells
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				
+			}
+		}
 	}
 
 }
