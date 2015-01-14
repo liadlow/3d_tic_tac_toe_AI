@@ -12,6 +12,12 @@ public class Coordinates {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public Coordinates(Coordinates cell){
+		this.level = cell.level;
+		this.x = cell.x;
+		this.y = cell.y;
+	}
 
 	// checks validity concerning cell availability
 	public boolean isValid(ArrayList<Coordinates> empty_cells) {

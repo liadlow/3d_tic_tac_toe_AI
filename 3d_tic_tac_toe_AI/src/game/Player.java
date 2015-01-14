@@ -1,6 +1,6 @@
 package game;
 
-import java.util.ArrayList;
+import ai.*;
 
 public class Player {
 	
@@ -15,18 +15,22 @@ public class Player {
 		AI = aI;
 	}
 	
-	public Coordinates make_move(ArrayList<Coordinates> empty_cells) {
+	public Coordinates make_move(Grid grid) {
 		Coordinates move = null;
 		if(!AI) {
 			move = Panel.movePrompt();
-			while(!move.isValid(empty_cells)) {
+			while(!move.isValid(grid.getEmpty_cells())) {
 				move = Panel.wrongMove();
 			}
 		}
 		else {
 			//MINIMAX
 			
-			//damn you AI I will be random anyways!
+			Node root = new Node(null, new Grid(grid)); //Init root node - no parent/state: current
+			Minimax mnmx = new Minimax(root, this, 4);  //last arg is the depth to search
+			root = mnmx.genStates(root, 1, this.getSymbol());
+			mnmx.getBestMove(root, 0);
+			move = root.getMove();
 		}
 		return move;
 	}
@@ -47,6 +51,14 @@ public class Player {
 		return symbol;
 	}
 
+	public String getOppSymbol(){
+		if(this.getSymbol().equals("X")){
+			return "O";
+		}else{
+			return "X";
+		}
+	}
+	
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}

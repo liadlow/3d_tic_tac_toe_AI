@@ -41,14 +41,14 @@ public class Game {
 	public void play(Player turn) {
 		while(true) {
 			Panel.showGrid(grid.getLevel1(), grid.getLevel2(), grid.getLevel3(), player.getName(), player.getNum_ttts(), pc.getNum_ttts(), turn.getName(), 0);
-			Coordinates cord = turn.make_move(grid.getEmpty_cells());
+			Coordinates cord = turn.make_move(grid);
 			
 			// random input for testing
-			if(cord == null && turn.isAI()) {
+			/*if(cord == null && turn.isAI()) {
 				Random rand = new Random();
 				int randomNum = rand.nextInt((grid.getEmpty_cells().size() - 1) + 1) + 1;
 				cord = grid.getEmpty_cells().get(randomNum - 1);
-			}
+			}*/
 				
 				
 			grid.lock_move(cord, turn.getSymbol());

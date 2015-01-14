@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 
+
 public class Grid {
 	
 	private ArrayList<Coordinates> empty_cells;
@@ -29,33 +30,45 @@ public class Grid {
 		}
 	}
 	
-	public Grid(Grid grid, Coordinates cell) {
-		super();
-		empty_cells = grid.empty_cells;
-		level1 = grid.level1;
-		level2 = grid.level2;
-		level3 = grid.level3;
-		for(Coordinates cord : empty_cells) {
-			if(cord.equals(cell)) {
-				empty_cells.remove(cord);
-			}
-		}
-	}
+	public Grid(Grid grid){
+		this.empty_cells = grid.empty_cells;
+		this.level1 = new String[3][3];
+		this.level2 = new String[3][3];
+		this.level3 = new String[3][3];
+		
+    	for(int i = 0; i<3; i++){
+    		for(int j = 0; j<3; j++){
+    			this.level1[i][j] = grid.getLevel1sp(i, j);
+    		}
+    	}
+    	
+    	for(int i = 0; i<3; i++){
+    		for(int j = 0; j<3; j++){
+    			this.level2[i][j] = grid.getLevel2sp(i, j);
+    		}
+    	}
+    	
+    	for(int i = 0; i<3; i++){
+    		for(int j = 0; j<3; j++){
+    			this.level3[i][j] = grid.getLevel3sp(i, j);
+    		}
+    	}
+    }
 	
 	private int heuristic(int n) {
 		switch(n) {
 			case 2: // 2 of our symbols before insertion
-				return 100;
+				return 1000; //100
 			case -2: // 2 of the opponents symbols before insertion
-				return 50;
+				return 200; //50
 			case 1: // 1 of our symbols and a space before insertion
-				return 10;
+				return 20; //10
 			case -1: // 1 of the opponents symbols and a space before insertion
-				return 5;
+				return 3; //5
 			case -3: // only spaces before insertion
-				return 1;
+				return 1; //1
 			default: // 1 of our and 1 of the opponents symbols before insertion
-				return 0;
+				return 0;  //0
 		}
 	}
 	
@@ -176,6 +189,30 @@ public class Grid {
 
 	public void setLevel2(String[][] level2) {
 		this.level2 = level2;
+	}
+	
+	public void setLevel1sp(int i, int j, String sym){
+		this.level1[i][j] = sym;
+	}
+	
+	public void setLevel2sp(int i, int j, String sym){
+		this.level2[i][j] = sym;
+	}
+	
+	public void setLevel3sp(int i, int j, String sym){
+		this.level3[i][j] = sym;
+	}
+	
+	public String getLevel1sp(int i, int j){
+		return this.level1[i][j];
+	}
+	
+	public String getLevel2sp(int i, int j){
+		return this.level2[i][j];
+	}
+	
+	public String getLevel3sp(int i, int j){
+		return this.level3[i][j];
 	}
 	
 	public String[][] getLevel(int level) {
