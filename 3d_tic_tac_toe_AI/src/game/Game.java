@@ -8,13 +8,15 @@ public class Game {
 	private Player player, pc;
 	private boolean gameover;
 	private Grid grid;
+	private int level;
 
-	public Game(String name, String symbol) {
+	public Game(String name, String symbol, int level) {
 		super();
 		player = new Player(name, symbol, false);
 		pc = new Player("computer", oppositeSymbol(), true);
 		grid = new Grid();
 		gameover = false;
+		this.level = level;
 	}
 
 	private String oppositeSymbol() {
@@ -41,7 +43,7 @@ public class Game {
 	public void play(Player turn) {
 		while(true) {
 			Panel.showGrid(grid.getLevel1(), grid.getLevel2(), grid.getLevel3(), player.getName(), player.getNum_ttts(), pc.getNum_ttts(), turn.getName(), 0);
-			Coordinates cord = turn.make_move(grid);
+			Coordinates cord = turn.make_move(grid, this.level);
 			
 			// random input for testing
 			/*if(cord == null && turn.isAI()) {
