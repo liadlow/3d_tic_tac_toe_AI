@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Panel {
 	
 	private static Scanner keyboard = new Scanner(System.in);
-
+	
 	// prompt user to make move
 	public static Coordinates movePrompt() {
 		System.out.print("Make your move by choosing the level in which you want to play (1 - upper level, 2 - mid level, 3 - lower level): ");
@@ -33,6 +33,17 @@ public class Panel {
 		}
 		Coordinates cord = new Coordinates(level, x, y);
 		return cord;
+	}
+	
+	public static String levelPrompt(){
+		System.out.println("Choose the difficult level (0 - 3 year old, 1 - Easy, 2 - Medium, 3 - Hard, 4 - Expert):");
+		
+		String level = keyboard.nextLine();
+		while(!level.equals("0") && !level.equals("1") && !level.equals("2") && !level.equals("3") && !level.equals("4")){
+			System.out.println("Please provide a valid difficulty level(0-4):");
+			level = keyboard.nextLine();
+		}
+		return level;
 	}
 	
 	// custom getInt
