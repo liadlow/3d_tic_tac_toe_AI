@@ -1,6 +1,9 @@
 package game;
 
-import ai.*;
+import java.util.Random;
+
+import ai.Minimax;
+import ai.Node;
 
 public class Player {
 	
@@ -15,7 +18,7 @@ public class Player {
 		AI = aI;
 	}
 	
-	public Coordinates make_move(Grid grid) {
+	public Coordinates make_move(Grid grid, int hlevel) {
 		Coordinates move = null;
 		if(!AI) {
 			move = Panel.movePrompt();
@@ -25,12 +28,18 @@ public class Player {
 		}
 		else {
 			//MINIMAX
-			
-			Node root = new Node(null, new Grid(grid)); //Init root node - no parent/state: current
-			Minimax mnmx = new Minimax(root, this, 4);  //last arg is the depth to search
-			root = mnmx.genStates(root, 1, this.getSymbol());
-			mnmx.getBestMove(root, 0);
-			move = root.getMove();
+			if(hlevel == 0) {
+			  	Random rand = new Random();
+					int randomNum = rand.nextInt((grid.getEmpty_cells().size() - 1) + 1) + 1;
+					move = grid.getEmpty_cells().get(randomNum - 1);
+			  }
+			  else {
+				Node root = new Node(null, new Grid(grid)); //Init root node - no parent/state: current
+			  	Minimax mnmx = new Minimax(root, this, hlevel);  //last arg is the depth to search
+				root = mnmx.genStates(root, 1, this.getSymbol());
+				mnmx.getBestMove(root, 0);
+				move = root.getMove();
+			  }
 		}
 		return move;
 	}
